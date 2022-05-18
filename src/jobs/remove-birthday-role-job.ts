@@ -36,6 +36,8 @@ export class RemoveBirthdayRoleJob implements Job {
                 let guild = await this.client.guilds.fetch(guildData.GuildDiscordId);
 
                 let members = guild.members.cache;
+
+                // TODO: could do this in one call before the guildData loop and filter down to the users in this guild
                 let userData = await this.userRepo.getAllUsers(members.map(member => member.id));
 
                 let role = guild.roles.cache.get(guildData.BirthdayRoleDiscordId);
