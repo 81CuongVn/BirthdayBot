@@ -247,11 +247,13 @@ export class CelebrationService {
                                 );
                             } else {
                                 // Remove the role
-                                await ActionUtils.removeRole(
-                                    birthdayMemberStatus.member,
-                                    birthdayRole,
-                                    Config.delays.roles
-                                );
+                                if (birthdayMemberStatus.member.roles.cache.has(birthdayRole.id)) {
+                                    await ActionUtils.removeRole(
+                                        birthdayMemberStatus.member,
+                                        birthdayRole,
+                                        Config.delays.roles
+                                    );
+                                }
                             }
                         }
                     }
