@@ -144,8 +144,7 @@ export class CelebrationUtils {
         } else {
             needsBirthdayMessage = false;
             needsBirthdayRoleAdded = false;
-            // I don't think I need to even subtract 1 hour from the birthday time, but I'm going to just in case
-            needsBirthdayRoleRemoved = currentDate.subtract(1, 'days').hour() === 0;
+            needsBirthdayRoleRemoved = true;
         }
 
         return new BirthdayMemberStatus(
