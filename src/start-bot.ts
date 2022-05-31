@@ -97,7 +97,7 @@ import {
     TriggerHandler,
 } from './events/index.js';
 import { CustomClient } from './extensions/index.js';
-import { CelebrationJob, Job, UpdateMemberCacheJob } from './jobs/index.js';
+import { CelebrationJob, Job, RemoveBirthdayRoleJob, UpdateMemberCacheJob } from './jobs/index.js';
 import { Bot } from './models/bot.js';
 import { Reaction } from './reactions/index.js';
 import { DataAccess } from './services/database/index.js';
@@ -315,6 +315,7 @@ async function start(): Promise<void> {
     let jobs: Job[] = [
         new CelebrationJob(client, userRepo, combinedRepo, celebrationService, subService),
         new UpdateMemberCacheJob(client),
+        new RemoveBirthdayRoleJob(client, guildRepo, userRepo),
     ];
 
     // Bot

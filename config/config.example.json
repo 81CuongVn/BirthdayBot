@@ -67,7 +67,12 @@
             "interval": 600
         },
         "updateMemberCacheJob": {
-            "schedule": "0 30 */4 * * *",
+            "schedule": "0 30 */8 * * *",
+            "log": false,
+            "interval": 1500
+        },
+        "removeBirthdayRoleJob": {
+            "schedule": "0 30 4-23/8 * * *",
             "log": false,
             "interval": 1500
         }

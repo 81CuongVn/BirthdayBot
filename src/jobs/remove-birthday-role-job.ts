@@ -17,9 +17,9 @@ let Logs = require('../../lang/logs.json');
 
 export class RemoveBirthdayRoleJob implements Job {
     public name = 'Remove Birthday Role';
-    public schedule: string = Config.jobs.updateMemberCacheJob.schedule; // update
-    public log: boolean = Config.jobs.updateMemberCacheJob.log; // update
-    public interval: number = Config.jobs.updateMemberCacheJob.interval; // update
+    public schedule: string = Config.jobs.removeBirthdayRoleJob.schedule;
+    public log: boolean = Config.jobs.removeBirthdayRoleJob.log;
+    public interval: number = Config.jobs.removeBirthdayRoleJob.interval;
 
     constructor(private client: Client, private guildRepo: GuildRepo, private userRepo: UserRepo) {}
 
@@ -95,6 +95,7 @@ export class RemoveBirthdayRoleJob implements Job {
                 // Get a list of people who need the birthday role removed
                 let membersToRemoveRole = membersWithRole.filter(
                     member =>
+                        !birthdayMemberStatuses.find(status => status.member.id === member.id) ||
                         birthdayMemberStatuses.find(status => status.member.id === member.id)
                             .needsRoleRemoved
                 );
@@ -103,12 +104,14 @@ export class RemoveBirthdayRoleJob implements Job {
                 for (let member of membersToRemoveRole) {
                     if (counter >= calculatedMax) break;
                     if (member.roles.cache.has(role.id)) {
+                        Logger.info(`Removing role for ${member.user.tag}`);
                         await ActionUtils.removeRole(member, role);
                         counter++;
                     }
                 }
             } catch (error) {
                 // Ignore, not much we can do
+                Logger.error(error);
             } finally {
                 // Regardless we wait since we made an api call
                 await TimeUtils.sleep(this.interval);
