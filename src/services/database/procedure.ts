@@ -18,6 +18,7 @@ export enum Procedure {
     Message_UpdateEmbedUser = 'Message_UpdateEmbedUser',
     Message_UpdateColorUser = 'Message_UpdateColorUser',
     Guild_Get = 'Guild_Get',
+    Guild_GetAll = 'Guild_GetAll',
     Guild_UpdateBirthdayChannel = 'Guild_UpdateBirthdayChannel',
     Guild_UpdateMemberAnniversaryChannel = 'Guild_UpdateMemberAnniversaryChannel',
     Guild_UpdateServerAnniversaryChannel = 'Guild_UpdateServerAnniversaryChannel',

@@ -10,6 +10,13 @@ export class GuildRepo {
         return SqlUtils.getRow(results, 0, 0);
     }
 
+    public async getAllGuilds(discordIds: string[]): Promise<GuildData[]> {
+        let results = await this.dataAccess.executeProcedure(Procedure.Guild_GetAll, [
+            discordIds.join(','),
+        ]);
+        return SqlUtils.getTable(results, 0);
+    }
+
     public async addOrUpdateGuild(
         discordId: string,
         birthdayChannelId: string,
