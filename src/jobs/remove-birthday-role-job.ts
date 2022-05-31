@@ -65,7 +65,7 @@ export class RemoveBirthdayRoleJob implements Job {
                 if (!role) continue;
 
                 let counter = 0;
-                let calculatedMax = (guild.memberCount / 365) * 3;
+                let calculatedMax = Math.floor((guild.memberCount / 365) * 3);
 
                 // filter out the members who don't have the birthday role
                 let membersWithRole = members.filter(member => member.roles.cache.has(role.id));
